@@ -115,3 +115,18 @@ resource "aws_iam_role_policy_attachment" "lambda_invoke_ecs_role_attach" {
   role       = aws_iam_role.lambda_invoke_ecs_role.name
   policy_arn = aws_iam_policy.lambda_ecs_invoke_policy.arn
 }
+# Store ECS Task Execution Role ARN in SSM Parameter Store
+resource "aws_ssm_parameter" "ecs_task_execution_role_arn" {
+  name        = "/my-vpc/ecs_task_execution_role_arn"
+  description = "ECS Task Execution Role ARN"
+  type        = "String"
+  value       = aws_iam_role.ecs_task_execution_role.arn
+}
+
+# Store Lambda Invoke ECS Role ARN in SSM Parameter Store
+resource "aws_ssm_parameter" "lambda_invoke_ecs_role_arn" {
+  name        = "/my-vpc/lambda_invoke_ecs_role_arn"
+  description = "Lambda Invoke ECS Role ARN"
+  type        = "String"
+  value       = aws_iam_role.lambda_invoke_ecs_role.arn
+}
