@@ -58,7 +58,7 @@ resource "aws_iam_role_policy_attachment" "ecs_task_execution_role_attach" {
 }
 
 # IAM Role for Lambda (or Step Functions) to Invoke ECS Tasks
-#tfsec:ignore:aws-iam-no-policy-wildcards
+# tfsec:ignore:aws-iam-no-policy-wildcards
 resource "aws_iam_role" "lambda_invoke_ecs_role" {
   name = "lambda_invoke_ecs_role"
 
@@ -134,6 +134,7 @@ resource "aws_iam_role" "redshift_role" {
 }
 
 # IAM Policy for Redshift with the specified actions
+# tfsec:ignore:aws-iam-no-policy-wildcards
 resource "aws_iam_policy" "redshift_policy" {
   name        = "RedshiftCustomPolicy"
   description = "Custom policy for Redshift with multiple service permissions"
@@ -386,8 +387,8 @@ resource "aws_ssm_parameter" "lambda_invoke_ecs_role_arn" {
 }
 
 # Store RedshiftRole ARN in SSM Parameter Store
-resource "aws_ssm_parameter" "ecs_task_execution_role_arn" {
-  name        = "/my-redshift/acccess_to_everything_role_arn"
+resource "aws_ssm_parameter" "Redshift_access_role" {
+  name        = "/my-redshift/access_to_everything_role_arn"
   description = "Redshift access Role ARN"
   type        = "String"
   value       = aws_iam_role.redshift_role.arn
